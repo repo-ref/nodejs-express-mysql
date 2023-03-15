@@ -1,6 +1,7 @@
 const express = require("express");
 // const bodyParser = require("body-parser"); /* deprecated */
 const cors = require("cors");
+const cron = require('node-cron')
 
 const app = express();
 
@@ -22,6 +23,12 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/tutorial.routes.js")(app);
+require("./app/routes/chat.routes.js")(app);
+require("./app/routes/invit.routes.js")(app);
+
+cron.schedule('*/3 * * * * *',function(){
+  console.log('do every 3 seconds')
+})
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
